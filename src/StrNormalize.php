@@ -16,7 +16,7 @@ namespace Windwalker\Utilities;
  *
  * @since  __DEPLOY_VERSION__
  */
-class StrNormalise
+class StrNormalize
 {
     public static function splitCamelCase(string $str): array
     {
@@ -30,7 +30,7 @@ class StrNormalise
 
     public static function splitAll(string $str): array
     {
-        $strs = preg_split('#[ \-_\.]+#', $str);
+        $strs = preg_split('#[ \-_\.\\\\]+#', $str);
 
         $strs = array_map([static::class, 'splitCamelCase'], $strs);
 
@@ -101,7 +101,7 @@ class StrNormalise
      */
     public static function toKebabCase(string $input): string
     {
-        return static::toDashSeparated($input);
+        return strtolower(static::toDashSeparated($input));
     }
 
     /**
@@ -146,7 +146,7 @@ class StrNormalise
     public static function toSnakeCase(string $input): string
     {
         // Convert spaces and dashes to underscores.
-        return static::separate($input, '_');
+        return strtolower(static::toUnderscoreSeparated($input));
     }
 
     /**
@@ -158,7 +158,8 @@ class StrNormalise
      */
     public static function toUnderscoreSeparated(string $input): string
     {
-        return static::toSnakeCase($input);
+        // Convert spaces and dashes to underscores.
+        return static::separate($input, '_');
     }
 
     /**

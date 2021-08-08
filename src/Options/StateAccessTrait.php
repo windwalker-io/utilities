@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Windwalker\Utilities\Classes;
+namespace Windwalker\Utilities\Options;
 
 use ArrayAccess;
 use Windwalker\Utilities\Arr;
@@ -17,9 +17,7 @@ use Windwalker\Utilities\Contract\AccessibleInterface;
 use Windwalker\Utilities\TypeCast;
 
 /**
- * The OptionAccessTrait class.
- *
- * @since  3.0.1
+ * Trait StateAccessTrait
  */
 trait StateAccessTrait
 {
@@ -38,12 +36,12 @@ trait StateAccessTrait
         $this->stateStorage = Arr::mergeRecursive(TypeCast::toArray($this->stateStorage), $defaults, $options);
     }
 
-    public function getState(string $name, $default = null)
+    public function getState(string $name, mixed $default = null)
     {
         return $this->stateStorage[$name] ?? $default;
     }
 
-    public function setState(string $name, $value): static
+    public function setState(string $name, mixed $value): static
     {
         $this->stateStorage[$name] = $value;
 
@@ -55,7 +53,7 @@ trait StateAccessTrait
         return $this->stateStorage;
     }
 
-    public function setStates(array|ArrayAccess|AccessibleInterface $state)
+    public function setStates(array|ArrayAccess|AccessibleInterface $state): static
     {
         $this->stateStorage = $state;
 
