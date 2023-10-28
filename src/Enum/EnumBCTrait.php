@@ -12,9 +12,12 @@ declare(strict_types=1);
 namespace Windwalker\Utilities\Enum;
 
 /**
- * Interface EnumAdapterInterface
+ * Trait EnumBCTrait
  */
-interface EnumAdapterInterface extends \JsonSerializable
+trait EnumBCTrait
 {
-    public function getValue();
+    public function equals($variable = null): bool
+    {
+        return $variable === $this;
+    }
 }
